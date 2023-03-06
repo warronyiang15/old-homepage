@@ -45,6 +45,13 @@ var create_p = (content) => {
     return p;
 }
 
+var create_gray_p = (content) => {
+    var p = document.createElement('p');
+    p.innerHTML = content;
+    p.style.color = 'gray';
+    return p;
+}
+
 var create_special_p = (content) => {
     var p = document.createElement('p');
     p.innerHTML = content;
@@ -78,6 +85,23 @@ var create_a = (href) => {
     return a;
 }
 
+var create_card = (name, content, link, logo_src) => {
+    var card = create_div('project-card');
+    var card_header = create_div('project-card-header');
+    var card_details = create_div('project-card-details');
+
+    card_header.appendChild(create_title(name));
+    card_header.appendChild(create_gray_p(content));
+    card.addEventListener('click', () => {
+        window.location.href = link;
+    });
+    card_details.appendChild(create_img('logo', logo_src));
+    card.appendChild(card_header);
+    card.appendChild(card_details);
+    return card;
+}
+
+
 window.addEventListener('load', () => {
     var index = window.location.hash.slice(1) || "0";
     click_func(index);
@@ -92,6 +116,7 @@ window.addEventListener('hashchange', () => {
     var index = window.location.hash.slice(1) || "0";
     click_func(index);
 });
+
 
 var click_func = (index) => {
     clear_func();
@@ -257,6 +282,23 @@ var click_func = (index) => {
         c.appendChild(div);
     }
     else if( index === '2' ){
+        /* Project Page */
+        var project_set = create_div('project-set');
+        
+        /* Card list */
+        project_set.appendChild( create_card('Hitcon 2022', 'My first online CTF!', 'https://github.com/warronyiang15/Computer-Security/tree/main/Hitcon2022', 'assets/github_logo.png') );
+        project_set.appendChild( create_card('AIS3 EOF CTF 2022 qual', 'Final exam of Computer Security', 'https://github.com/warronyiang15/Computer-Security/tree/main/AIS-EOF2022_qual', 'assets/github_logo.png'));
+        project_set.appendChild( create_card('AIS3 EOF CTF 2022 finals', 'My first offline CTF and first time to play A&D and KoH 😯', 'https://github.com/warronyiang15/Computer-Security/tree/main/AIS-EOF2022_finals', 'assets/github_logo.png'));
+        project_set.appendChild( create_card('Web programming Spring 2022 Final Project', 'The final project about online board games', 'https://github.com/warronyiang15/wpfinalapp', 'assets/github_logo.png'));
+        project_set.appendChild( create_card('TCG Fall 2022 Final Project', 'The final project about TCG einstein würfelt nicht AI', 'https://github.com/warronyiang15/TCG_AI_Final', 'assets/github_logo.png'));
+        
+
+        c.appendChild( create_div('empty') );
+        c.appendChild( create_title('Project/Blog') );
+        c.appendChild( create_hr('solid') );
+        c.appendChild( project_set);
+    }
+    else if( index === '3' ){
         /* Competition Page */
         var competition_set = create_div('competition-set');
         var card = new Array(2);
@@ -266,7 +308,7 @@ var click_func = (index) => {
         card[0].appendChild( create_h1('第四十三年系上新生ICPC程式競賽'));
         card[0].appendChild( create_h3('2020, National Taiwan University') );
         card[0].appendChild( create_hr('solid-full') );
-        card[0].appendChild( create_special_p('Freshman Competitive Programming in CSIE Department, Checkout Projects/Blog section for details!'));
+        card[0].appendChild( create_special_p('Freshman Competitive Programming in CSIE Department'));
 
         card[1].appendChild( create_h1('111年度AIS3 EOF進階資安攻防演練競賽'));
         card[1].appendChild( create_h3('2023, National Taiwan University') );
@@ -281,18 +323,6 @@ var click_func = (index) => {
         c.appendChild( create_title('Competitions') );
         c.appendChild( create_hr('solid') );
         c.appendChild( competition_set );
-    }
-    else if( index === '3' ){
-        /* Project Page */
-        var project_set = create_div('project-set');
-        var project_card = new Array(2);
-        for(let i = 0;i < project_card.length;i++)
-            project_card[i] = create_div('project-card');
-        
-        
-        c.appendChild( create_div('empty') );
-        c.appendChild( create_title('Project/Blog') );
-        c.appendChild( create_hr('solid') );
     }
     else{
         /* Profile Page */
@@ -424,16 +454,8 @@ Projects/Blog
             <h1>NASA</h1>
             <p>hihihi</p>
         </div>                   
-        <div class="project-card-score">
-            <h1>A</h1>
-        </div>
         <div class="project-card-details">
-            <div class="project-card-block">
-                <h3>hi</h3>
-            </div>
-            <div class="project-card-block">
-                <h3>hi</h3>
-            </div>
+            <img src="assets/github_logo.png" class="logo">
         </div>
     </div>
 </div>
